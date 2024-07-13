@@ -105,15 +105,15 @@ const Column: React.FC<{ content: any, y: any }> = ({ content, y }) => {
 };
 
 const Home: React.FC = () => {
-  const { scrollY } = useScroll();
+  // const { scrollY } = useScroll();
   const gallery = useRef<HTMLDivElement | null>(null);
-  const [scrollYValue, setScrollYValue] = useState(1);
+  // const [scrollYValue, setScrollYValue] = useState(1);
   const [progress, setProgress] = useState(0);
   const [dimension, setDimension] = useState<{ width: number; height: number }>({ width: 0, height: 0 });
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    setScrollYValue(latest);
-  });
+  // useMotionValueEvent(scrollY, "change", (latest) => {
+  //   setScrollYValue(latest);
+  // });
 
   const { scrollYProgress } = useScroll({
     target: gallery,
