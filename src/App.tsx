@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import Lenis from 'lenis';
-import { useTransform, useScroll, motion, createMotionComponent } from 'framer-motion';
+import { useTransform, useScroll, motion } from 'framer-motion';
 import { useMotionValueEvent } from "framer-motion";
 import { HeroHighlightDemo } from './her-highlight';
 import { FollowerPointerCard } from './following-pointer';
-import svgToTinyDataUri from 'mini-svg-data-uri';
 
 const content = [
   {
