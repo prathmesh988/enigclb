@@ -1,0 +1,14 @@
+// src/App.tsx
+import React from 'react';
+import ParallaxPage from './components/ParallaxPage';
+import './index.css';
+
+const App: React.FC = () => {
+  return (
+    <div className="App">
+      <ParallaxPage />
+    </div>
+  );
+};
+
+export default App;
