@@ -18,8 +18,8 @@ const content = [
         data-prefix="fas"
         style={{ color: "#147ddf" }}
         viewBox="0 0 512 512"
-        width={120}
-        height={120}
+        width={80}
+        height={80}
       >
         <path
           fill="currentColor"
@@ -40,8 +40,8 @@ const content = [
         data-prefix="fas"
         style={{ color: "green" }}
         viewBox="0 0 384 512"
-        width={120}
-        height={120}
+        width={80}
+        height={80}
       >
         <path
           fill="currentColor"
@@ -62,8 +62,8 @@ const content = [
         data-prefix="fas"
         style={{ color: "red" }}
         viewBox="0 0 640 512"
-        width={120}
-        height={120}
+        width={80}
+        height={80}
       >
         <path
           fill="currentColor"
@@ -74,20 +74,25 @@ const content = [
   }
 ];
 
+
+
 const Column: React.FC<{ content: any, y: any }> = ({ content, y }) => {
   return (
     <motion.div style={{ y }} className="w-full">
-      <h1 className='text-black mb-7 text-[3em] md:text-xl md:text-[4em] mb-10'>About US</h1>
+      <h1 className='text-black mb-7 text-[3em] md:text-[4em] md:mb-10'>About US</h1>
+      
       <div className="w-full h-full flex flex-col md:flex-row gap-2">
         {content.map((project: any, index: any) => (
-          <FollowerPointerCard key={index} title={project.concept} className="w-full md:w-1/2 lg:w-1/3 h-auto">
-            <div className="relative overflow-hidden h-[90%]  rounded-2xl transition duration-200 group bg-white hover:shadow-xl border border-zinc-100 md:h-[60%]">
+          <FollowerPointerCard key={index} title={project.concept} className="w-full md:w-[25%] lg:w-[30%] h-auto">
+            <div className="relative overflow-hidden h-[100%]  md:h-[50%]  rounded-2xl transition duration-200 group bg-white hover:shadow-xl border border-zinc-100 ">
               <div className='flex flex-col justify-center items-center h-full'>
                 <div className="w-full aspect-w-16 aspect-h-10 bg-gray-100 rounded-tr-lg rounded-tl-lg overflow-hidden xl:aspect-w-16 xl:aspect-h-10 relative"></div>
-                <div className="p-4 md:p-6">
-                  <div className='w-full'>
+               
+                <div className='w-full flex justify-center  self-start p-2'>
                     {project.svg()}
                   </div>
+                <div className="p-4 md:p-6">
+                  
                   <h2 className="font-bold my-4 text-lg text-zinc-700">
                     {project.concept}
                   </h2>
@@ -100,6 +105,7 @@ const Column: React.FC<{ content: any, y: any }> = ({ content, y }) => {
           </FollowerPointerCard>
         ))}
       </div>
+    
     </motion.div>
   );
 };
@@ -121,7 +127,7 @@ const Home: React.FC = () => {
   });
 
   const { height } = dimension;
-  const y = useTransform(scrollYProgress, [0, 1], [-250, height /1.5]);
+  const y = useTransform(scrollYProgress, [0, 1], [-300, height/1.5 ]);
   const yprog = useTransform(scrollYProgress, [0, 1], [-2, 2]);
 
   useMotionValueEvent(yprog, "change", (latest) => {
@@ -153,7 +159,7 @@ const Home: React.FC = () => {
       <div className="w-full h-[100vh] bg-[$9FEBAC]">
         <HeroHighlightDemo />
       </div>
-      <div ref={gallery} className="w-full relative flex gap-4 p-4 overflow-hidden bg-white h-fit min-h-[150vh]" style={{ backgroundImage: `url('https://gdsc.dbit.in/img/Website_BG.png')`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <div ref={gallery} className="w-full relative flex gap-4 p-4 overflow-hidden bg-white h-[170vh] md:h-[100vh] " style={{ backgroundImage: `url('https://gdsc.dbit.in/img/Website_BG.png')`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <Column content={content} y={y} />
       </div>
       <div className="relative h-[100vh] w-full rounded-t-[1.5em] bg-black" style={{ top: `-${progress * 3}vh` }}></div>

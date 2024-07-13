@@ -18,7 +18,7 @@ export function HeroHighlightDemo() {
         }}
         className="text-2xl px-4 md:text-4xl lg:text-5xl font-bold text-neutral-700 dark:text-white max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto "
       >
-        <svg
+        {/* <svg
           width="1328"
           height="1254"
           viewBox="0 0 1328 1254"
@@ -65,7 +65,7 @@ export function HeroHighlightDemo() {
               />
             </clipPath>
           </defs>
-        </svg>
+        </svg> */}
 
         <Highlight className="text-black dark:text-white">IIST</Highlight>
       </motion.h1>
