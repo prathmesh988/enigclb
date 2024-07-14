@@ -105,36 +105,37 @@ const events = [
   },
 ];
 
-const Column: React.FC<{ content: any;  }> = ({ content }) => {
+const Column: React.FC<{ content: any }> = ({ content }) => {
   return (
-    <motion.div  className="w-full ">
+    <motion.div className="w-full">
       <h1 className="text-white mb-7 text-[3.3em] md:text-[5em] md:mb-10 md:ml-[1.5em] font-bold">
         Events
       </h1>
 
-      <div className="w-full p-4 h-full flex flex-col  items-center flex-wrap lg:flex-row lg:flex-nowrap gap-2 md:justify-center " >
+      <div className="w-full p-4 h-full flex flex-col items-center flex-wrap lg:flex-row lg:flex-nowrap gap-2 md:justify-center">
         {content.map((project: any) => (
-          
-          <FollowerPointerCard title={project.event} className=" w-[60%] md:w-[40%]  h-full  lg:w-[20%]"  >
+          <FollowerPointerCard
+            key={project.event} // Add a key for list items
+            title={project.event}
+            className="w-[60%] md:w-[40%] h-full lg:w-[20%]"
+          >
             <div className="relative overflow-hidden rounded-2xl transition duration-200 group bg-white hover:shadow-xl border border-zinc-100x">
               <div className="w-full aspect-w-16 aspect-h-10 bg-blue-500 rounded-tr-lg rounded-tl-lg overflow-hidden xl:aspect-w-16 xl:aspect-h-10 relative p-3">
                 <img
                   src={project.poster}
                   alt="thumbnail"
-                 
-                  className={` rounded-lg w-full inset-0 group-hover:scale-95 group-hover:rounded-2xl transform object-cover transition duration-200 `}
+                  className="rounded-lg w-full inset-0 group-hover:scale-95 group-hover:rounded-2xl transform object-cover transition duration-200"
                 />
               </div>
-              <div className=" p-4">
+              <div className="p-4">
                 <h2 className="font-bold my-4 text-lg text-zinc-700 h-[2em]">
                   {project.event}
                 </h2>
                 <h2 className="font-normal my-4 text-sm text-zinc-500 h-[9em]">
                   {project.about}
                 </h2>
-                <div className="flex flex-row justify-between items-center mt-10 ld:h-[3em]">
+                <div className="flex flex-row justify-between items-center mt-10">
                   <span className="text-sm text-gray-500">{project.date}</span>
-                 
                 </div>
               </div>
             </div>
@@ -149,59 +150,44 @@ const Column2: React.FC<{ content: any; y: any }> = ({ content, y }) => {
   return (
     <motion.div style={{ y }} className="w-full">
       <div className="flex flex-col items-center justify-center">
-        <h1 className=" self-start  text-black mb-7 font-bold text-[3.3em] md:text-[5em] md:mb-10 md:ml-[3em] font-bold">
-          About US
+        <h1 className="self-start text-black mb-7 text-[3.3em] md:text-[5em] md:mb-10 md:ml-[3em] font-bold">
+          About Us
         </h1>
         <HoverEffect
           items={content}
           className="w-full md:w-[60%] lg:w-[70%] h-auto md:h-[20%] lg:h-[45%]"
         />
       </div>
-      {/*  */}
-      {/* ))} */}
-      {/* </div> */}
     </motion.div>
   );
 };
 
 const Home: React.FC = () => {
-  // const { scrollY } = useScroll();
   const gallery = useRef<HTMLDivElement | null>(null);
   const gallery2 = useRef<HTMLDivElement | null>(null);
-  // const gallery3 = useRef<HTMLDivElement | null>(null);
-  // const [scrollYValue, setScrollYValue] = useState(1);
   const [progress, setProgress] = useState(0);
-  const [dimension, setDimension] = useState<{ width: number; height: number }>(
-    { width: 0, height: 0 }
-  );
-
-  // useMotionValueEvent(scrollY, "change", (latest) => {
-  //   setScrollYValue(latest);
-  // });
+  const [dimension, setDimension] = useState<{ width: number; height: number }>({
+    width: 0,
+    height: 0,
+  });
 
   const { scrollYProgress } = useScroll({
     target: gallery,
-    offset: ["start end", "end start"],
+    offset: ['start end', 'end start'],
   });
 
   const scrollYprog2 = useScroll({
     target: gallery2,
-    offset: ["start end", "end start"],
+    offset: ['start end', 'end start'],
   });
-
 
   const { height } = dimension;
   const y = useTransform(scrollYProgress, [0, 1], [-300, height / 1.5]);
-  const y2 = useTransform(
-    scrollYprog2.scrollYProgress,
-    [0, 1],
-    [-171, height / 5]
-  );
-
+  const y2 = useTransform(scrollYprog2.scrollYProgress, [0, 1], [-171, height / 5]);
 
   const yprog = useTransform(scrollYProgress, [0, 1], [-2, 2]);
 
-  useMotionValueEvent(yprog, "change", (latest) => {
+  useMotionValueEvent(yprog, 'change', (latest) => {
     setProgress(latest);
   });
 
@@ -216,49 +202,46 @@ const Home: React.FC = () => {
       setDimension({ width: window.innerWidth, height: window.innerHeight });
     };
 
-    window.addEventListener("resize", resize);
+    window.addEventListener('resize', resize);
     requestAnimationFrame(raf);
     resize();
 
     return () => {
-      window.removeEventListener("resize", resize);
+      window.removeEventListener('resize', resize);
     };
   }, []);
 
   return (
     <>
-    <Navbar />
-    <main className="relative flex flex-col items-center top-[-2%]">
-      <div className="w-full h-[100vh] bg-[$9FEBAC]" ref={gallery2}>
-        <motion.div style={{ y: y2 }} className="w-full h-full">
-          <HeroHighlightDemo />
-        </motion.div>
-      </div>
-      <div
-        ref={gallery}
-        className="w-full relative flex gap-4 p-4 overflow-hidden bg-white h-[150vh] md:h-[100vh] "
-        style={{
-          backgroundImage: `url('https://gdsc.dbit.in/img/Website_BG.png')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        {/* <Column content={content} y={y} /> */}
-        <Column2 content={content} y={y} />
-      </div>
-      <div
-        className="relative h-fit py-2 w-full rounded-t-[1.5em] bg-black lg:min-h-[100vh] lg:h-fit"
-        style={{ top: `-${progress * 3}vh` }}
-       
-      >
-        {/* <Event content={content} y={y2} /> */}
-        <Column content={events}  />
-      </div>
-      <div className="w-[100%] h-[100vh] flex items-center justify-center"> 
-        <ContactForm />
-      </div>
-      <Footer />
-    </main>
+      <Navbar />
+      <main className="relative flex flex-col items-center top-[-2%]">
+        <div className="w-full h-[100vh] bg-[#9FEBAC]" ref={gallery2}>
+          <motion.div style={{ y: y2 }} className="w-full h-full">
+            <HeroHighlightDemo />
+          </motion.div>
+        </div>
+        <div
+          ref={gallery}
+          className="w-full relative flex gap-4 p-4 overflow-hidden bg-white h-[150vh] md:h-[100vh]"
+          style={{
+            backgroundImage: `url('https://gdsc.dbit.in/img/Website_BG.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        >
+          <Column2 content={content} y={y} />
+        </div>
+        <div
+          className="relative h-fit py-2 w-full rounded-t-[1.5em] bg-black lg:min-h-[100vh] lg:h-fit"
+          style={{ top: `-${progress * 3}vh` }}
+        >
+          <Column content={events} />
+        </div>
+        <div className="w-[100%] h-[100vh] flex items-center justify-center">
+          <ContactForm />
+        </div>
+        <Footer />
+      </main>
     </>
   );
 };
