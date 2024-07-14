@@ -108,12 +108,12 @@ const events = [
 const Column: React.FC<{ content: any;  }> = ({ content }) => {
   return (
     <motion.div  className="w-full ">
-      <h1 className="text-white mb-7 font-bold text-[3.3em] md:text-[5em] md:mb-10 md:ml-[1.5em] font-bold">
+      <h1 className="text-white mb-7 text-[3.3em] md:text-[5em] md:mb-10 md:ml-[1.5em] font-bold">
         Events
       </h1>
 
       <div className="w-full p-4 h-full flex flex-col  items-center flex-wrap lg:flex-row lg:flex-nowrap gap-2 md:justify-center " >
-        {content.map((project: any, index: any) => (
+        {content.map((project: any) => (
           
           <FollowerPointerCard title={project.event} className=" w-[60%] md:w-[40%]  h-full  lg:w-[20%]"  >
             <div className="relative overflow-hidden rounded-2xl transition duration-200 group bg-white hover:shadow-xl border border-zinc-100x">
