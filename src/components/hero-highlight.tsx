@@ -28,26 +28,26 @@ export const HeroHighlight = ({
   return (
     <div
       className={cn(
-        "relative h-[100%] flex items-center bg-white bg-green-400 justify-center w-full group ",
+        "relative h-[100%] flex items-center bg-white bg-[#74D683] justify-center w-full group ",
         containerClassName
       )}
       onMouseMove={handleMouseMove}
     >
       <div className="absolute inset-0 bg-dot-white-300 dark:bg-dot-thick-white pointer-events-none h-[100%]" />
       <motion.div
-        className="pointer-events-none bg-dot-thick-blue-500  dark:bg-dot-red-500   absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100 h-[100%]"
+        className="pointer-events-none bg-dot-thick-black  dark:bg-dot-thick-black   absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100 h-[100%]"
         style={{
           WebkitMaskImage: useMotionTemplate`
             radial-gradient(
-              200px circle at ${mouseX}px ${mouseY}px,
+              300px circle at ${mouseX}px ${mouseY}px,
               black 100%,
               transparent 0%
             )
           `,
           maskImage: useMotionTemplate`
             radial-gradient(
-              200px circle at ${mouseX}px ${mouseY}px,
-              black 30%,
+              300px circle at ${mouseX}px ${mouseY}px,
+              black 40%,
               transparent 100%
             )
           `,

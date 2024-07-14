@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue } from "framer-motion";
 import { cn } from "./lib/util";
+import { useInView } from "framer-motion";
 
 type FollowerPointerCardProps = {
   children: React.ReactNode;
   className?: string;
-  title?: string;
+  title?:any;
 };
 
 export const FollowerPointerCard: React.FC<FollowerPointerCardProps> = ({
@@ -13,11 +14,16 @@ export const FollowerPointerCard: React.FC<FollowerPointerCardProps> = ({
   className,
   title,
 }) => {
+  // const [ref, inView] = useInView();
+  // const ref1 = useRef<HTMLDivElement>(null);
+  // const isInView = useInView(reff)
+
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const ref = useRef<HTMLDivElement>(null);
   const [rect, setRect] = useState<DOMRect | null>(null);
   const [isInside, setIsInside] = useState(false);
+  const isInView = useInView(ref);
 
   useEffect(() => {
     const updateRect = () => {
@@ -36,6 +42,10 @@ export const FollowerPointerCard: React.FC<FollowerPointerCardProps> = ({
     };
   }, []);
 
+  useEffect(() => {
+    console.log(isInView);
+  }
+  , [isInView]);
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (rect) {
       x.set(e.clientX - rect.left);
@@ -52,19 +62,27 @@ export const FollowerPointerCard: React.FC<FollowerPointerCardProps> = ({
   };
 
   return (
-    <div
+  
+   
+    <motion.div
+    initial={{ opacity: 0, y: 50 }}
+    animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 30 }}
+    transition={{ duration: 1.5, ease: "easeOut" }}
       onMouseLeave={handleMouseLeave}
       onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       style={{ cursor: "none" }}
       ref={ref}
       className={cn("relative", className)}
+     
     >
       <AnimatePresence>
         {isInside && <FollowPointer x={x} y={y} title={title} />}
       </AnimatePresence>
       {children}
-    </div>
+    </motion.div>
+    
+ 
   );
 };
 
