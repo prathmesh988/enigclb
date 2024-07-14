@@ -6,6 +6,8 @@ import { HeroHighlightDemo } from "./her-highlight";
 import { FollowerPointerCard } from "./following-pointer";
 import Navbar from "./Navbar";
 import { HoverEffect } from "./card-hover-effect";
+import ContactForm from "./Contactus";
+import Footer from "./Footer";
 
 const content = [
   {
@@ -245,13 +247,17 @@ const Home: React.FC = () => {
         <Column2 content={content} y={y} />
       </div>
       <div
-        className="relative h-fit py-2 w-full rounded-t-[1.5em] bg-black lg:h-[100vh]"
+        className="relative h-fit py-2 w-full rounded-t-[1.5em] bg-black lg:min-h-[100vh] lg:h-fit"
         style={{ top: `-${progress * 3}vh` }}
        
       >
         {/* <Event content={content} y={y2} /> */}
         <Column content={events}  />
       </div>
+      <div className="w-[100%] h-[100vh] flex items-center justify-center"> 
+        <ContactForm />
+      </div>
+      <Footer />
     </main>
     </>
   );

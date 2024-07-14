@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState<boolean>(true);
-  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 
   let lastScrollTop = 0;
   useEffect(() => {
