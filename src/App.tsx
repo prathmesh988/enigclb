@@ -108,16 +108,17 @@ const events = [
 const Column: React.FC<{ content: any }> = ({ content }) => {
   return (
     <motion.div className="w-full">
-      <h1 className="text-white mb-7 text-[3.3em] md:text-[5em] md:mb-10 md:ml-[1.5em] font-bold">
-        Events
-      </h1>
+      <h1 className="text-white mb-7 ml-[1em] text-[3.3em] md:text-[5em] md:mb-10 md:ml-[1.5em] font-bold">
+        Timeline
+      </h1> 
 
-      <div className="w-full p-4 h-full flex flex-col items-center flex-wrap lg:flex-row lg:flex-nowrap gap-2 md:justify-center">
+      <div className="w-full p-4 h-full flex flex-col items-center flex-wrap lg:flex-row n gap-2 md:hidden">
         {content.map((project: any) => (
+          <div className="w-[100%] h-[100%] flex justify-center relative  ">
           <FollowerPointerCard
             key={project.event} // Add a key for list items
             title={project.event}
-            className="w-[60%] md:w-[40%] h-full lg:w-[20%]"
+            className=" hidden w-[60%] md:w-[40%] h-full lg:w-[20%] after:absolute after:content-[''] after:w-[2px] after:ml-0.5 after:text-red-500   after:bg-white after:left-[120%] after:top-[1%] after:h-[100%] before:absolute before:content-[' '] before:w-4 before:ml-0.5  before:bg-red-400 before:left-[117%] before:top-[-1%] before:h-[4%] before:z-30 before:rounded-full after:z-10 "
           >
             <div className="relative overflow-hidden rounded-2xl transition duration-200 group bg-white hover:shadow-xl border border-zinc-100x">
               <div className="w-full aspect-w-16 aspect-h-10 bg-blue-500 rounded-tr-lg rounded-tl-lg overflow-hidden xl:aspect-w-16 xl:aspect-h-10 relative p-3">
@@ -140,6 +141,39 @@ const Column: React.FC<{ content: any }> = ({ content }) => {
               </div>
             </div>
           </FollowerPointerCard>
+          </div>
+        ))}
+      </div>
+      <div className="w-full p-4 h-full flex flex-col items-center flex-wrap lg:flex-row n gap-2 md:hidden">
+        {content.map((project: any) => (
+          <div className="w-[100%] h-[100%] flex justify-center relative  ">
+          <FollowerPointerCard
+            key={project.event} // Add a key for list items
+            title={project.event}
+            className="w-[60%] md:w-[40%] h-full lg:w-[20%] after:absolute after:content-[''] after:w-[2px] after:ml-0.5 after:text-red-500   after:bg-white after:left-[120%] after:top-[1%] after:h-[100%] before:absolute before:content-[' '] before:w-4 before:ml-0.5  before:bg-red-400 before:left-[117%] before:top-[-1%] before:h-[4%] before:z-30 before:rounded-full after:z-10 "
+          >
+            <div className="relative overflow-hidden rounded-2xl transition duration-200 group bg-white hover:shadow-xl border border-zinc-100x">
+              <div className="w-full aspect-w-16 aspect-h-10 bg-blue-500 rounded-tr-lg rounded-tl-lg overflow-hidden xl:aspect-w-16 xl:aspect-h-10 relative p-3">
+                <img
+                  src={project.poster}
+                  alt="thumbnail"
+                  className="rounded-lg w-full inset-0 group-hover:scale-95 group-hover:rounded-2xl transform object-cover transition duration-200"
+                />
+              </div>
+              <div className="p-4">
+                <h2 className="font-bold my-4 text-lg text-zinc-700 h-[2em]">
+                  {project.event}
+                </h2>
+                <h2 className="font-normal my-4 text-sm text-zinc-500 h-[9em]">
+                  {project.about}
+                </h2>
+                <div className="flex flex-row justify-between items-center mt-10">
+                  <span className="text-sm text-gray-500">{project.date}</span>
+                </div>
+              </div>
+            </div>
+          </FollowerPointerCard>
+          </div>
         ))}
       </div>
     </motion.div>
