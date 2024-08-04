@@ -1,34 +1,55 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue } from "framer-motion";
 import { cn } from "../lib/util";
+import { useInView } from "framer-motion";
+import { useCarousel } from "./carausal";
 
-export const FollowerPointerCard = ({
+type FollowerPointerCardProps = {
+  children: React.ReactNode;
+  className?: string;
+  title?:any;
+};
+export const FollowerPointerCard: React.FC<FollowerPointerCardProps> = ({
   children,
   className,
   title,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  title?: string | React.ReactNode;
 }) => {
+  // const [ref, inView] = useInView();
+  // const ref1 = useRef<HTMLDivElement>(null);
+  // const isInView = useInView(reff)
+
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const ref = React.useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const [rect, setRect] = useState<DOMRect | null>(null);
-  const [isInside, setIsInside] = useState<boolean>(false);
+  const [isInside, setIsInside] = useState(false);
+  const isInView = useInView(ref);
 
   useEffect(() => {
-    if (ref.current) {
-      setRect(ref.current.getBoundingClientRect());
-    }
+    const updateRect = () => {
+      if (ref.current) {
+        setRect(ref.current.getBoundingClientRect());
+      }
+    };
+
+    updateRect();
+    window.addEventListener("resize", updateRect);
+    window.addEventListener("scroll", updateRect);
+
+    return () => {
+      window.removeEventListener("resize", updateRect);
+      window.removeEventListener("scroll", updateRect);
+    };
   }, []);
 
+  useEffect(() => {
+    console.log(isInView);
+  }
+  , [isInView]);
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (rect) {
-      const scrollX = window.scrollX;
-      const scrollY = window.scrollY;
-      x.set(e.clientX - rect.left + scrollX);
-      y.set(e.clientY - rect.top + scrollY);
+      x.set(e.clientX - rect.left);
+      y.set(e.clientY - rect.top);
     }
   };
 
@@ -41,7 +62,116 @@ export const FollowerPointerCard = ({
   };
 
   return (
-    <div
+  
+   
+    <motion.div
+    initial={{ opacity: 0, y: 50 }}
+    animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 30 }}
+    transition={{ duration: 0.8, ease: "easeOut" }}
+      onMouseLeave={handleMouseLeave}
+      onMouseEnter={handleMouseEnter}
+      onMouseMove={handleMouseMove}
+      style={{ cursor: "none" }}
+      ref={ref}
+      className={cn("relative", className)}
+     
+    >
+      <AnimatePresence>
+        {isInside && <FollowPointer x={x} y={y} title={title} />}
+      </AnimatePresence>
+      {children}
+    </motion.div>
+    
+ 
+  );
+};
+
+type FollowPointerProps = {
+  x: any; // Replace 'any' with appropriate type if x and y have specific motion value types
+  y: any;
+  title?: string;
+
+};
+
+export const FollowerPointerCardWFade: React.FC<FollowerPointerCardProps> = ({
+  children,
+  className,
+  title,
+  // containerref,
+}) => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const ref = useRef<HTMLDivElement>(null);
+  const [rect, setRect] = useState<DOMRect | null>(null);
+  const [isInside, setIsInside] = useState(false);
+ 
+  const { api } = useCarousel(); // Use the carousel context to get the API
+  const [scrollX, setScrollX] = useState(0);
+  const [containerRect, setContainerRect] = useState<DOMRect | null>(null);
+
+ 
+
+  useEffect(() => {
+    const updateRects = () => {
+      if (ref.current) {
+       
+        setRect(ref.current.getBoundingClientRect());
+        if (ref.current.parentElement) {
+          setContainerRect(ref.current!.parentElement!.parentElement!.parentElement!.getBoundingClientRect());
+        }
+      }
+    };
+
+    updateRects();
+    window.addEventListener("resize", updateRects);
+    window.addEventListener("scroll", updateRects);
+
+    return () => {
+      window.removeEventListener("resize", updateRects);
+      window.removeEventListener("scroll", updateRects);
+    };
+  }, []);
+
+  useEffect(() => {
+    
+    if (api) {
+      const updateScrollX = () =>{ 
+          console.log(api.scrollProgress());
+        setScrollX(api.scrollProgress() * api.scrollSnapList().length)};
+        // console.log(scrollX); 
+        // console.log(api.scrollSnapList().length);
+
+
+      api.on("scroll", updateScrollX); // Update the rectangle on carousel scroll
+      updateScrollX();
+      return () => {
+        api.off("scroll", updateScrollX);
+      };
+    }
+  }, [api]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (rect && containerRect) {
+   
+      const screenWidth = window.innerWidth;
+      const offset = screenWidth * 0.045; 
+    
+      x.set(e.clientX -( rect.left   ) + scrollX * (rect.width  -offset));
+      y.set(e.clientY - rect.top);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setIsInside(false);
+  };
+
+  const handleMouseEnter = () => {
+    setIsInside(true);
+  };
+
+  return (
+    <motion.div
+     
       onMouseLeave={handleMouseLeave}
       onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
@@ -53,19 +183,10 @@ export const FollowerPointerCard = ({
         {isInside && <FollowPointer x={x} y={y} title={title} />}
       </AnimatePresence>
       {children}
-    </div>
+    </motion.div>
   );
 };
-
-export const FollowPointer = ({
-  x,
-  y,
-  title,
-}: {
-  x: any;
-  y: any;
-  title?: string | React.ReactNode;
-}) => {
+export const FollowPointer: React.FC<FollowPointerProps> = ({ x, y, title }) => {
   const colors = [
     "var(--sky-500)",
     "var(--neutral-500)",
@@ -79,7 +200,11 @@ export const FollowPointer = ({
   return (
     <motion.div
       className="h-4 w-4 rounded-full absolute z-50"
-      style={{ top: y.get(), left: x.get(), pointerEvents: "none" }}
+      style={{
+        top: y,
+        left: x,
+        pointerEvents: "none",
+      }}
       initial={{ scale: 1, opacity: 1 }}
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0, opacity: 0 }}
@@ -109,4 +234,4 @@ export const FollowPointer = ({
       </motion.div>
     </motion.div>
   );
-};
+}

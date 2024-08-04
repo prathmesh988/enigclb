@@ -67,7 +67,7 @@ export const FollowerPointerCard: React.FC<FollowerPointerCardProps> = ({
     <motion.div
     initial={{ opacity: 0, y: 50 }}
     animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 30 }}
-    transition={{ duration: 1.5, ease: "easeOut" }}
+    transition={{ duration: 0.8, ease: "easeOut" }}
       onMouseLeave={handleMouseLeave}
       onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
@@ -90,6 +90,83 @@ type FollowPointerProps = {
   x: any; // Replace 'any' with appropriate type if x and y have specific motion value types
   y: any;
   title?: string;
+};
+
+export const FollowerPointerCardWFade: React.FC<FollowerPointerCardProps> = ({
+  children,
+  className,
+  title,
+}) => {
+  // const [ref, inView] = useInView();
+  // const ref1 = useRef<HTMLDivElement>(null);
+  // const isInView = useInView(reff)
+
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const ref = useRef<HTMLDivElement>(null);
+  const [rect, setRect] = useState<DOMRect | null>(null);
+  const [isInside, setIsInside] = useState(false);
+  const isInView = useInView(ref);
+
+  useEffect(() => {
+    const updateRect = () => {
+      if (ref.current) {
+        setRect(ref.current.getBoundingClientRect());
+      }
+    };
+
+    updateRect();
+    window.addEventListener("resize", updateRect);
+    window.addEventListener("scroll", updateRect);
+
+    return () => {
+      window.removeEventListener("resize", updateRect);
+      window.removeEventListener("scroll", updateRect);
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log(isInView);
+  }
+  , [isInView]);
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (rect) {
+      x.set(e.clientX - rect.left);
+      y.set(e.clientY - rect.top);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setIsInside(false);
+  };
+
+  const handleMouseEnter = () => {
+    setIsInside(true);
+  };
+
+  return (
+  
+   
+    <motion.div
+    initial={{ opacity: 0, y: 50 }}
+    animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 30 }}
+    transition={{ duration: 0.8, ease: "easeOut" }}
+      onMouseLeave={handleMouseLeave}
+      onMouseEnter={handleMouseEnter}
+      onMouseMove={handleMouseMove}
+      style={{ cursor: "none" }}
+      ref={ref}
+      className={cn("relative", className)}
+     
+    >
+      <AnimatePresence>
+        {isInside && <FollowPointer x={x} y={y} title={title} />}
+      </AnimatePresence>
+      {children}
+    </motion.div>
+    
+ 
+  );
 };
 
 export const FollowPointer: React.FC<FollowPointerProps> = ({ x, y, title }) => {

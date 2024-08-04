@@ -3,11 +3,34 @@ import Lenis from "lenis";
 import { useTransform, useScroll, motion } from "framer-motion";
 import { useMotionValueEvent } from "framer-motion";
 import { HeroHighlightDemo } from "./her-highlight";
-import { FollowerPointerCard } from "./following-pointer";
+import {
+  FollowerPointerCard,
+  FollowerPointerCardWFade,
+  FollowPointer,
+} from "./following-pointer";
 import Navbar from "./Navbar";
 import { HoverEffect } from "./card-hover-effect";
 import ContactForm from "./Contactus";
 import Footer from "./Footer";
+import { useSpring } from "framer-motion";
+
+import {
+  CarouselContent,
+  CarouselItem,
+  Carousel,
+  CarouselPrevious,
+  CarouselNext,
+} from "./components/carausal";
+interface Project {
+  event: string;
+  poster: string;
+  about: string;
+  date: string;
+}
+
+interface SliderProps {
+  content: Project[];
+}
 
 const content = [
   {
@@ -103,76 +126,90 @@ const events = [
     poster: "https://gdsc.dbit.in/img/Website_BG.png",
     date: "12/12/2021",
   },
-];
 
-const Column: React.FC<{ content: any }> = ({ content }) => {
+  {
+    event: "Event 4",
+    about:
+      "Students who are eager to learn and grow in the field of technology and are interested in Google technologies.",
+    poster: "https://gdsc.dbit.in/img/Website_BG.png",
+    date: "12/12/2021",
+  },
+  {
+    event: "Event 5",
+    about:
+      "Students who are eager to learn and grow in the field of technology and are interested in Google technologies.",
+    poster: "https://gdsc.dbit.in/img/Website_BG.png",
+    date: "12/12/2021",
+  },
+  {
+    event: "Event 6",
+    about:
+      "Students who are eager to learn and grow in the field of technology and are interested in Google technologies.",
+    poster: "https://gdsc.dbit.in/img/Website_BG.png",
+    date: "12/12/2021",
+  },
+  {
+    event: "Event 7",
+    about:
+      "Students who are eager to learn and grow in the field of technology and are interested in Google technologies.",
+    poster: "https://gdsc.dbit.in/img/Website_BG.png",
+    date: "12/12/2021",
+  },
+];
+interface Project {
+  event: string;
+  poster: string;
+  about: string;
+  date: string;
+}
+
+interface ColumnProps {
+  content: Project[];
+}
+
+// Updated Column Component
+const Column: React.FC<{ content: Project[] }> = ({ content }) => {
   return (
     <motion.div className="w-full">
-      <h1 className="text-white mb-7 ml-[1em] text-[3.3em] md:text-[5em] md:mb-10 md:ml-[1.5em] font-bold">
+      <h1 className="text-white mb-7 ml-4 text-3xl md:text-5xl md:mb-10 md:ml-6 font-bold">
         Timeline
-      </h1> 
-
-      <div className="w-full p-4 h-full flex flex-col items-center flex-wrap lg:flex-row n gap-2 md:hidden">
-        {content.map((project: any) => (
-          <div className="w-[100%] h-[100%] flex justify-center relative  ">
-          <FollowerPointerCard
-            key={project.event} // Add a key for list items
-            title={project.event}
-            className=" hidden w-[60%] md:w-[40%] h-full lg:w-[20%] after:absolute after:content-[''] after:w-[2px] after:ml-0.5 after:text-red-500   after:bg-white after:left-[120%] after:top-[1%] after:h-[100%] before:absolute before:content-[' '] before:w-4 before:ml-0.5  before:bg-red-400 before:left-[117%] before:top-[-1%] before:h-[4%] before:z-30 before:rounded-full after:z-10 "
-          >
-            <div className="relative overflow-hidden rounded-2xl transition duration-200 group bg-white hover:shadow-xl border border-zinc-100x">
-              <div className="w-full aspect-w-16 aspect-h-10 bg-blue-500 rounded-tr-lg rounded-tl-lg overflow-hidden xl:aspect-w-16 xl:aspect-h-10 relative p-3">
-                <img
-                  src={project.poster}
-                  alt="thumbnail"
-                  className="rounded-lg w-full inset-0 group-hover:scale-95 group-hover:rounded-2xl transform object-cover transition duration-200"
-                />
-              </div>
-              <div className="p-4">
-                <h2 className="font-bold my-4 text-lg text-zinc-700 h-[2em]">
-                  {project.event}
-                </h2>
-                <h2 className="font-normal my-4 text-sm text-zinc-500 h-[9em]">
-                  {project.about}
-                </h2>
-                <div className="flex flex-row justify-between items-center mt-10">
-                  <span className="text-sm text-gray-500">{project.date}</span>
-                </div>
-              </div>
-            </div>
-          </FollowerPointerCard>
-          </div>
-        ))}
+      </h1>
+      <div className="hidden md:flex justify-center items-center w-full h-full">
+        <Slider content={content} />
       </div>
-      <div className="w-full p-4 h-full flex flex-col items-center flex-wrap lg:flex-row n gap-2 md:hidden">
-        {content.map((project: any) => (
-          <div className="w-[100%] h-[100%] flex justify-center relative  ">
-          <FollowerPointerCard
-            key={project.event} // Add a key for list items
-            title={project.event}
-            className="w-[60%] md:w-[40%] h-full lg:w-[20%] after:absolute after:content-[''] after:w-[2px] after:ml-0.5 after:text-red-500   after:bg-white after:left-[120%] after:top-[1%] after:h-[100%] before:absolute before:content-[' '] before:w-4 before:ml-0.5  before:bg-red-400 before:left-[117%] before:top-[-1%] before:h-[4%] before:z-30 before:rounded-full after:z-10 "
+      <div className="w-full p-4 flex flex-col items-center gap-2 md:hidden">
+        {content.map((project: Project) => (
+          <div
+            key={project.event}
+            className="w-full flex justify-center relative"
           >
-            <div className="relative overflow-hidden rounded-2xl transition duration-200 group bg-white hover:shadow-xl border border-zinc-100x">
-              <div className="w-full aspect-w-16 aspect-h-10 bg-blue-500 rounded-tr-lg rounded-tl-lg overflow-hidden xl:aspect-w-16 xl:aspect-h-10 relative p-3">
-                <img
-                  src={project.poster}
-                  alt="thumbnail"
-                  className="rounded-lg w-full inset-0 group-hover:scale-95 group-hover:rounded-2xl transform object-cover transition duration-200"
-                />
-              </div>
-              <div className="p-4">
-                <h2 className="font-bold my-4 text-lg text-zinc-700 h-[2em]">
-                  {project.event}
-                </h2>
-                <h2 className="font-normal my-4 text-sm text-zinc-500 h-[9em]">
-                  {project.about}
-                </h2>
-                <div className="flex flex-row justify-between items-center mt-10">
-                  <span className="text-sm text-gray-500">{project.date}</span>
+            <FollowerPointerCard
+              title={project.event}
+              className="relative w-[85%] sm:w-[80%] h-full  after:content-[''] after:absolute after:top-0 after:left-[80vw] after:w-5 after:h-5 after:bg-red-500 after:rounded-full     after:z-10 before:content-[''] before:absolute before:top-[1.5vh] before:left-[82vw] before:w-[1px] before:h-full before:bg-white  before:z-10"
+            >
+              <div className="relative overflow-hidden rounded-2xl transition duration-200 group bg-white hover:shadow-xl border border-zinc-100 flex-grow flex flex-col">
+                <div className="w-full aspect-w-16 aspect-h-10 bg-blue-500 rounded-tr-lg rounded-tl-lg overflow-hidden relative p-3">
+                  <img
+                    src={project.poster}
+                    alt="thumbnail"
+                    className="rounded-lg w-full h-full object-cover transform group-hover:scale-95 group-hover:rounded-2xl transition duration-200"
+                  />
+                </div>
+                <div className="p-4 flex-grow flex flex-col">
+                  <h2 className="font-bold my-2 text-lg text-zinc-700 h-8">
+                    {project.event}
+                  </h2>
+                  <p className="font-normal my-2 text-sm text-zinc-500 flex-grow">
+                    {project.about}
+                  </p>
+                  <div className="flex justify-between items-center mt-4">
+                    <span className="text-sm text-gray-500">
+                      {project.date}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-          </FollowerPointerCard>
+            </FollowerPointerCard>
           </div>
         ))}
       </div>
@@ -180,9 +217,50 @@ const Column: React.FC<{ content: any }> = ({ content }) => {
   );
 };
 
+const Slider: React.FC<SliderProps> = ({ content }) => {
+  return (
+    <>
+      <div className="w-full h-[450px] md:h-[500px] lg:h-[600px] flex items-center justify-center">
+        <Carousel className="w-full max-w-[70%] ">
+          <CarouselContent className="-ml-1">
+            {content.map((project: Project, index: number) => (
+              <CarouselItem key={project.event} title={project.event}>
+                <div className="  relative overflow-hidden rounded-2xl transition duration-200 group bg-white hover:shadow-xl border border-zinc-100 flex-grow flex flex-col ">
+                  <div className="w-full aspect-w-16 aspect-h-10 bg-blue-500 rounded-tr-lg rounded-tl-lg overflow-hidden relative p-3">
+                    <img
+                      src={project.poster}
+                      alt="thumbnail"
+                      className="rounded-lg w-full h-full object-cover transform group-hover:scale-95 group-hover:rounded-2xl transition duration-200"
+                    />
+                  </div>
+                  <div className="p-4 flex-grow flex flex-col">
+                    <h2 className="font-bold my-2 text-lg text-zinc-700">
+                      {project.event}
+                    </h2>
+                    <p className="font-normal my-2 text-sm text-zinc-500 flex-grow">
+                      {project.about}
+                    </p>
+                    <div className="flex justify-between items-center mt-4">
+                      <span className="text-sm text-gray-500">
+                        {project.date}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
+      </div>
+    </>
+  );
+};
+
 const Column2: React.FC<{ content: any; y: any }> = ({ content, y }) => {
   return (
-    <motion.div style={{ y }} className="w-full">
+    <motion.div style={{ y }} className="w-[100vw]">
       <div className="flex flex-col items-center justify-center">
         <h1 className="self-start text-black mb-7 text-[3.3em] md:text-[5em] md:mb-10 md:ml-[3em] font-bold">
           About Us
@@ -200,28 +278,34 @@ const Home: React.FC = () => {
   const gallery = useRef<HTMLDivElement | null>(null);
   const gallery2 = useRef<HTMLDivElement | null>(null);
   const [progress, setProgress] = useState(0);
-  const [dimension, setDimension] = useState<{ width: number; height: number }>({
-    width: 0,
-    height: 0,
-  });
+  const [dimension, setDimension] = useState<{ width: number; height: number }>(
+    {
+      width: 0,
+      height: 0,
+    }
+  );
 
   const { scrollYProgress } = useScroll({
     target: gallery,
-    offset: ['start end', 'end start'],
+    offset: ["start end", "end start"],
   });
 
   const scrollYprog2 = useScroll({
     target: gallery2,
-    offset: ['start end', 'end start'],
+    offset: ["start end", "end start"],
   });
 
   const { height } = dimension;
   const y = useTransform(scrollYProgress, [0, 1], [-300, height / 1.5]);
-  const y2 = useTransform(scrollYprog2.scrollYProgress, [0, 1], [-171, height / 5]);
+  const y2 = useTransform(
+    scrollYprog2.scrollYProgress,
+    [0, 1],
+    [-171, height / 5]
+  );
 
   const yprog = useTransform(scrollYProgress, [0, 1], [-2, 2]);
 
-  useMotionValueEvent(yprog, 'change', (latest) => {
+  useMotionValueEvent(yprog, "change", (latest) => {
     setProgress(latest);
   });
 
@@ -236,19 +320,19 @@ const Home: React.FC = () => {
       setDimension({ width: window.innerWidth, height: window.innerHeight });
     };
 
-    window.addEventListener('resize', resize);
+    window.addEventListener("resize", resize);
     requestAnimationFrame(raf);
     resize();
 
     return () => {
-      window.removeEventListener('resize', resize);
+      window.removeEventListener("resize", resize);
     };
   }, []);
 
   return (
     <>
       <Navbar />
-      <main className="relative flex flex-col items-center top-[-2%]">
+      <main className="relative   flex flex-col items-center top-[-2%] overflow-x-hidden">
         <div className="w-full h-[100vh] bg-[#9FEBAC]" ref={gallery2}>
           <motion.div style={{ y: y2 }} className="w-full h-full">
             <HeroHighlightDemo />
@@ -259,14 +343,14 @@ const Home: React.FC = () => {
           className="w-full relative flex gap-4 p-4 overflow-hidden bg-white h-[150vh] md:h-[100vh]"
           style={{
             backgroundImage: `url('https://gdsc.dbit.in/img/Website_BG.png')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
         >
           <Column2 content={content} y={y} />
         </div>
         <div
-          className="relative h-fit py-2 w-full rounded-t-[1.5em] bg-black lg:min-h-[100vh] lg:h-fit"
+          className="relative h-fit py-2 w-full bg-black lg:min-h-screen "
           style={{ top: `-${progress * 3}vh` }}
         >
           <Column content={events} />
