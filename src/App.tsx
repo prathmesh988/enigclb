@@ -185,7 +185,7 @@ const Column: React.FC<{ content: Project[] }> = ({ content }) => {
           >
             <FollowerPointerCard
               title={project.event}
-              className="relative w-[85%] sm:w-[80%] h-full  after:content-[''] after:absolute after:top-0 after:left-[80vw] after:w-5 after:h-5 after:bg-red-500 after:rounded-full     after:z-10 before:content-[''] before:absolute before:top-[1.5vh] before:left-[82vw] before:w-[1px] before:h-full before:bg-white  before:z-10"
+              className="relative w-[85%] sm:w-[80%] h-full  after:content-[''] after:absolute after:top-0 after:left-[105%] after:w-5 after:h-5 after:bg-red-500 after:rounded-full     after:z-10 before:content-[''] before:absolute before:top-[1.2vh] before:left-[108%] before:w-[1px] before:h-full before:bg-white  before:z-10"
             >
               <div className="relative overflow-hidden rounded-2xl transition duration-200 group bg-white hover:shadow-xl border border-zinc-100 flex-grow flex flex-col">
                 <div className="w-full aspect-w-16 aspect-h-10 bg-blue-500 rounded-tr-lg rounded-tl-lg overflow-hidden relative p-3">
