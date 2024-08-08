@@ -17,6 +17,7 @@
     "embla-carousel-react": "^8.1.6",
     "framer-motion": "^11.3.2",
     "lenis": "^1.1.6",
+    "mdb-react-ui-kit": "^8.0.0",
     "mini-svg-data-uri": "^1.4.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

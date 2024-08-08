@@ -3,16 +3,12 @@ import Lenis from "lenis";
 import { useTransform, useScroll, motion } from "framer-motion";
 import { useMotionValueEvent } from "framer-motion";
 import { HeroHighlightDemo } from "./her-highlight";
-import {
-  FollowerPointerCard,
-  FollowerPointerCardWFade,
-  FollowPointer,
-} from "./following-pointer";
+import { FollowerPointerCard } from "./following-pointer";
 import Navbar from "./Navbar";
 import { HoverEffect } from "./card-hover-effect";
-import ContactForm from "./Contactus";
+
 import Footer from "./Footer";
-import { useSpring } from "framer-motion";
+
 
 import {
   CarouselContent,
@@ -21,6 +17,62 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "./components/carausal";
+
+import { BackgroundBeams } from "./components/background-beams";
+
+function Contact() {
+  return (
+    <div className="h-[100vh] w-full rounded  relative flex flex-col items-center justify-center antialiased">
+      <div className="max-w-2xl mx-auto p-4">
+        <div className="relative z-10">
+          <img src="" alt="" />
+        </div>
+        <h1 className="relative z-10 text-lg md:text-7xl  bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-sans font-bold">
+          Join the Confrence
+        </h1>
+        <p></p>
+        <p className="text-neutral-500 max-w-lg mx-auto my-2 text-sm text-center relative z-10">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet
+          dolorum quod dolores veniam culpa quidem aut id error itaque corporis
+          nostrum animi veritatis, voluptates qui, eligendi, sed eos molestias?
+          Beatae! covered.
+        </p>
+
+        <a
+          className="
+            relative
+            z-10
+            px-6
+            left-[40%]
+            top-4
+            p-4
+            rounded-lg
+            bg-gradient-to-r
+            from-blue-300
+
+            to-blue-500
+            text-white
+          
+          transition
+          duration-200
+          ease-in-out
+          transform
+          hover:scale-105
+          hover:text-blue-700
+          hover:font-bold
+            "
+          href="
+          https://docs.google.com/forms/d/e/1FAIpQLSdW1Dm5DGATn5mWwwZq3ngwUsbu3yr2cRkkdt1uk-Ir7JGQxw/viewform?usp=sf_link
+          "
+        >
+          Join Us
+        </a>
+      </div>
+      <BackgroundBeams />
+    </div>
+  );
+}
+
 interface Project {
   event: string;
   poster: string;
@@ -163,15 +215,15 @@ interface Project {
   date: string;
 }
 
-interface ColumnProps {
-  content: Project[];
-}
-
-// Updated Column Component
 const Column: React.FC<{ content: Project[] }> = ({ content }) => {
   return (
     <motion.div className="w-full">
-      <h1 className="text-white mb-7 ml-4 text-3xl md:text-5xl md:mb-10 md:ml-6 font-bold">
+      <h1
+        className="text-white mb-7 ml-4 text-3xl md:text-5xl md:mb-10 md:ml-6 font-bold 
+      py-10 
+      
+      "
+      >
         Timeline
       </h1>
       <div className="hidden md:flex justify-center items-center w-full h-full">
@@ -223,7 +275,7 @@ const Slider: React.FC<SliderProps> = ({ content }) => {
       <div className="w-full h-[450px] md:h-[500px] lg:h-[600px] flex items-center justify-center">
         <Carousel className="w-full max-w-[70%] ">
           <CarouselContent className="-ml-1">
-            {content.map((project: Project, index: number) => (
+            {content.map((project: Project) => (
               <CarouselItem key={project.event} title={project.event}>
                 <div className="  relative overflow-hidden rounded-2xl transition duration-200 group bg-white hover:shadow-xl border border-zinc-100 flex-grow flex flex-col ">
                   <div className="w-full aspect-w-16 aspect-h-10 bg-blue-500 rounded-tr-lg rounded-tl-lg overflow-hidden relative p-3">
@@ -277,6 +329,8 @@ const Column2: React.FC<{ content: any; y: any }> = ({ content, y }) => {
 const Home: React.FC = () => {
   const gallery = useRef<HTMLDivElement | null>(null);
   const gallery2 = useRef<HTMLDivElement | null>(null);
+
+
   const [progress, setProgress] = useState(0);
   const [dimension, setDimension] = useState<{ width: number; height: number }>(
     {
@@ -339,10 +393,11 @@ const Home: React.FC = () => {
           </motion.div>
         </div>
         <div
+          id="aboutus"
           ref={gallery}
           className="w-full relative flex gap-4 p-4 overflow-hidden bg-white h-[150vh] md:h-[100vh]"
           style={{
-            backgroundImage: `url('https://gdsc.dbit.in/img/Website_BG.png')`,
+            backgroundImage: `url(' https://gdsc.dbit.in/img/Website_BG.png')`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -350,13 +405,22 @@ const Home: React.FC = () => {
           <Column2 content={content} y={y} />
         </div>
         <div
+          
+          id="timeline"
           className="relative h-fit py-2 w-full bg-black lg:min-h-screen "
           style={{ top: `-${progress * 3}vh` }}
         >
           <Column content={events} />
         </div>
-        <div className="w-[100%] h-[100vh] flex items-center justify-center">
-          <ContactForm />
+        <div  
+
+          id="contactus"
+          className="w-[100%] h-[100vh] flex items-center justify-center relative"
+          style={{ top: `-${progress * 3}vh` }}
+        >
+          {/* <ContactForm /> */}
+
+          <Contact />
         </div>
         <Footer />
       </main>
