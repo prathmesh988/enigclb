@@ -329,6 +329,7 @@ const Column2: React.FC<{ content: any; y: any }> = ({ content, y }) => {
 const Home: React.FC = () => {
   const gallery = useRef<HTMLDivElement | null>(null);
   const gallery2 = useRef<HTMLDivElement | null>(null);
+  const refs= Array.from({length:2} ,()=>useRef<HTMLDivElement |null>(null))
 
 
   const [progress, setProgress] = useState(0);
@@ -385,7 +386,7 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar refmain={gallery}  refss={refs}/>
       <main className="relative   flex flex-col items-center top-[-2%] overflow-x-hidden">
         <div className="w-full h-[100vh] bg-[#9FEBAC]" ref={gallery2}>
           <motion.div style={{ y: y2 }} className="w-full h-full">
@@ -405,7 +406,7 @@ const Home: React.FC = () => {
           <Column2 content={content} y={y} />
         </div>
         <div
-          
+          ref={refs[0]}
           id="timeline"
           className="relative h-fit py-2 w-full bg-black lg:min-h-screen "
           style={{ top: `-${progress * 3}vh` }}
@@ -413,6 +414,7 @@ const Home: React.FC = () => {
           <Column content={events} />
         </div>
         <div  
+        ref={refs[1]}
 
           id="contactus"
           className="w-[100%] h-[100vh] flex items-center justify-center relative"

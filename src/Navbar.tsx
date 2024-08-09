@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import { AnimatePresence, motion } from "framer-motion";
 
-const Navbar: React.FC = () => {
+interface Proptype {
+  refss: React.MutableRefObject<HTMLDivElement | null>[];
+  refmain: React.MutableRefObject<HTMLDivElement | null>;
+}
+
+const Navbar: React.FC<Proptype> = ({ refss, refmain }: Proptype) => {
   const [isScrolled, setIsScrolled] = useState<boolean>(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 
@@ -12,11 +17,16 @@ const Navbar: React.FC = () => {
       const currentScrollTop =
         window.scrollY || document.documentElement.scrollTop;
 
-      if (currentScrollTop > lastScrollTop) {
+      if (refmain.current && currentScrollTop > refmain.current.offsetHeight) {
         setIsScrolled(false);
-      } else {
-        setIsScrolled(true);
-      }
+
+        if (currentScrollTop > lastScrollTop) {
+          setIsScrolled(false);
+        } else {
+          setIsScrolled(true);
+        }
+      } 
+
       lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
     };
 
@@ -33,26 +43,63 @@ const Navbar: React.FC = () => {
   return (
     <>
       <AnimatePresence>
-        {isScrolled && (
+        {isScrolled && !isSidebarOpen && (
           <motion.nav
-            className={`fixed top-0 left-0 w-full ${isSidebarOpen ? "hidden" : "block"} transition-colors duration-300 z-50`}
-            initial={{ backgroundColor: "transparent" }}
-            animate={{ backgroundColor: "#1F2937" }}
-            exit={{ backgroundColor: "transparent" }}
+            className={`fixed  left-[25%] w-[53%]  rounded-[50px] 
+              
+            font-sans 
+            leading-[1.3] 
+            text-left 
+            pointer-events-auto 
+            cursor-default 
+            outline-none 
+            backdrop-blur-[20px] 
+            transtiion-all
+            transition-colors duration-300 z-50
+            `}
+            initial={{ backgroundColor: "rgba(25,25,25,0.6)" , y: -90 }}
+            animate={{ backgroundColor: "rgba(25,25,25,0.6)"  , y:25} }
+            exit={{  y: -90 }}
           >
             <div className="container mx-auto px-4 py-3 flex justify-between items-center">
               <div className="text-2xl font-extrabold text-white">Enigma</div>
-              <div className="hidden md:flex space-x-8">
-                <a href="#aboutus" className="text-white hover:text-gray-300 transition-colors duration-200">
+              <div className="hidden md:flex space-x-8 p-4">
+                <button
+                  className="text-white hover:text-gray-300 transition-colors duration-200
+                 
+                    hover:pointer-cursor
+                  "
+                  onClick={() => {
+                    refmain.current?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                >
                   About Club
-                </a>
-                <a href="#timeline" className="text-white hover:text-gray-300 transition-colors duration-200">
+                </button>
+                <button
+                  className="text-white hover:text-gray-300 transition-colors duration-200
+                  
+                    hover:pointer-cursor
+                  "
+                  onClick={() => {
+                    refss[0].current?.scrollIntoView({ behavior: "smooth" });
+                    refss[0].current?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                >
                   Timeline
-                </a>
-                <a href="#contactus" className="text-white hover:text-gray-300 transition-colors duration-200">
+                </button>
+                <button
+                  className="text-white hover:text-gray-300 transition-colors duration-200
+                   
+                    hover:pointer-cursor
+                  "
+                  onClick={() => {
+                    refss[1].current?.scrollIntoView({ behavior: "smooth" });
+                    refss[1].current?.scrollIntoView({ behavior: "smooth" });
+                    refss[1].current?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                >
                   Join Us
-                </a>
-
+                </button>
               </div>
               <div className="md:hidden">
                 <button onClick={toggleSidebar} className="text-white">
@@ -104,38 +151,36 @@ const Navbar: React.FC = () => {
                   },
                 }}
               >
-                <motion.a
-                  href="#about"
+                <motion.button
                   className="text-white text-lg"
-                  onClick={() => setIsSidebarOpen(false)}
+                  onClick={() => {
+                    refmain.current?.scrollIntoView({ behavior: "smooth" });
+                    setIsSidebarOpen(false);
+                  }}
                   whileHover={{ scale: 1.05 }}
                 >
                   About Club
-                </motion.a>
-                <motion.a
-                  href="#page2"
+                </motion.button>
+                <motion.button
                   className="text-white text-lg"
-                  onClick={() => setIsSidebarOpen(false)}
+                  onClick={() => {
+                    refss[0].current?.scrollIntoView({ behavior: "smooth" });
+                    setIsSidebarOpen(false);
+                  }}
                   whileHover={{ scale: 1.05 }}
                 >
-                  Page 2
-                </motion.a>
-                <motion.a
-                  href="#page3"
+                  Timeline
+                </motion.button>
+                <motion.button
                   className="text-white text-lg"
-                  onClick={() => setIsSidebarOpen(false)}
+                  onClick={() => {
+                    refss[1].current?.scrollIntoView({ behavior: "smooth" });
+                    setIsSidebarOpen(false);
+                  }}
                   whileHover={{ scale: 1.05 }}
                 >
-                  Page 3
-                </motion.a>
-                <motion.a
-                  href="#connect"
-                  className="text-white text-lg"
-                  onClick={() => setIsSidebarOpen(false)}
-                  whileHover={{ scale: 1.05 }}
-                >
-                  Connect
-                </motion.a>
+                  Join Us
+                </motion.button>
               </motion.div>
             </motion.div>
           </motion.div>
