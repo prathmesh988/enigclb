@@ -1,7 +1,7 @@
 // Footer.tsx
 
 import React, { useEffect ,useState } from 'react';
-import { IframeHTMLAttributes } from 'react';
+
 
 import image from './assets/logo-Photoroom.png';
 //import dotenv
