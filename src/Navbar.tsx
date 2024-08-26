@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import { AnimatePresence, motion } from "framer-motion";
-
+//import photo from the asests
+import photo from "./assets/IRC-Photoroom-in.png";
 interface Proptype {
   refss: React.MutableRefObject<HTMLDivElement | null>[];
   refmain: React.MutableRefObject<HTMLDivElement | null>;
+  reffooter: React.MutableRefObject<HTMLDivElement | null>;
 }
 
-const Navbar: React.FC<Proptype> = ({ refss, refmain }: Proptype) => {
+const Navbar: React.FC<Proptype> = ({ refss, refmain  ,reffooter}: Proptype) => {
   const [isScrolled, setIsScrolled] = useState<boolean>(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 
@@ -62,7 +64,12 @@ const Navbar: React.FC<Proptype> = ({ refss, refmain }: Proptype) => {
             exit={{  y: -90 }}
           >
             <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-              <div className="text-2xl font-extrabold text-white">Enigma</div>
+              <div className="text-2xl font-extrabold text-white">
+
+                <img src={photo} alt
+                ="IRC-Photoroom" className=" w-[88px] h-[-36px] " />
+
+              </div>
               <div className="hidden md:flex space-x-8 p-4">
                 <button
                   className="text-white hover:text-gray-300 transition-colors duration-200
@@ -73,7 +80,7 @@ const Navbar: React.FC<Proptype> = ({ refss, refmain }: Proptype) => {
                     refmain.current?.scrollIntoView({ behavior: "smooth" });
                   }}
                 >
-                  About Club
+                  About Event
                 </button>
                 <button
                   className="text-white hover:text-gray-300 transition-colors duration-200
@@ -99,6 +106,18 @@ const Navbar: React.FC<Proptype> = ({ refss, refmain }: Proptype) => {
                   }}
                 >
                   Join Us
+                </button>
+
+                <button
+                  className="text-white hover:text-gray-300 transition-colors duration-200
+                   
+                    hover:pointer-cursor
+                  "
+                  onClick={() => {
+                    reffooter.current?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                >
+                  Links
                 </button>
               </div>
               <div className="md:hidden">

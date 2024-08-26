@@ -50,7 +50,7 @@ export const HoverEffect = ({
           </AnimatePresence>
           <Card>
             <CardTitle>{item.concept}</CardTitle>
-            <CardDescription>{item.inside}</CardDescription>
+            <CardDescription   >{item.inside}</CardDescription>
           </Card>
         </div>
       ))}
@@ -98,12 +98,17 @@ export const CardDescription = ({
   className?: string;
   children: React.ReactNode;
 }) => {
+
+    
+  
   return (
     <p
       className={cn(
         "mt-8 text-zinc-400 tracking-wide leading-relaxed text-sm",
         className
       )}
+      
+  
     >
       {children}
     </p>

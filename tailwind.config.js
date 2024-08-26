@@ -5,7 +5,7 @@ const {
   default: flattenColorPalette,
 } = require("tailwindcss/lib/util/flattenColorPalette");
 
-
+// require("dotenv").config(); 
 /** @type {import('tailwindcss').Config} */
 
 
