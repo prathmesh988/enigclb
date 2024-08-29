@@ -19,7 +19,7 @@ export const HoverEffect = ({
   return (
     <div
       className={cn(
-        "grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3  py-10",
+        "grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3  py-10 ",
         className
       )}
     >
@@ -27,7 +27,7 @@ export const HoverEffect = ({
         <div
         
           key={idx}
-          className="relative group  block p-2 h-full w-full"
+          className="relative group  block p-2 h-full w-full  top-[-10%]"
           onMouseEnter={() => setHoveredIndex(idx)}
           onMouseLeave={() => setHoveredIndex(null)}
         >
@@ -48,9 +48,11 @@ export const HoverEffect = ({
               />
             )}
           </AnimatePresence>
-          <Card>
-            <CardTitle>{item.concept}</CardTitle>
-            <CardDescription   >{item.inside}</CardDescription>
+          <Card className="p-3 ">
+            <CardTitle >{item.concept}</CardTitle>
+            <CardDescription  
+  
+            >{item.inside}</CardDescription>
           </Card>
         </div>
       ))}

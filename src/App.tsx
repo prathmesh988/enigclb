@@ -26,8 +26,8 @@ function Contact() {
         <div className="relative z-10">
           <img src="" alt="" />
         </div>
-        <h1 className="relative z-10 text-lg md:text-7xl  bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-sans font-bold">
-          Join the Confrence
+        <h1 className="relative z-10 text-lg md:text-7xl  bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-sans font-bold  w-fit">
+          Submit your Abstract
         </h1>
         <p></p>
         <p className="text-neutral-500 max-w-lg mx-auto my-2 text-sm text-center relative z-10">
@@ -66,7 +66,7 @@ function Contact() {
           https://docs.google.com/forms/d/e/1FAIpQLSdW1Dm5DGATn5mWwwZq3ngwUsbu3yr2cRkkdt1uk-Ir7JGQxw/viewform?usp=sf_link
           "
         >
-          Join Us
+           submit here
         </a>
       </div>
       <BackgroundBeams />
@@ -89,23 +89,19 @@ const Insider = () => {
   return (
     <>
       <div>
-        <div className="  shadow-lg rounded-lg">
+        <div className="  shadow-lg rounded-lg  text-[10px] ">
           <ol className="list-decimal list-inside space-y-2">
             <li>
-              <strong>Career Boost:</strong> Publishing sets you apart in job
-              and graduate school applications, demonstrating valuable skills to
-              employers and institutions.
+              <strong className="text-[12px]">Career Boost:</strong> Publishing
+              sets you apart in job and graduate school applications,
+              demonstrating valuable skills to employers and institutions.
             </li>
             <li>
-              <strong>Skill Development:</strong> The research and writing
-              process sharpens critical thinking, data analysis, and technical
-              writing abilities.
+              <strong className="text-[12px]">Skill Development:</strong> The
+              research and writing process sharpens critical thinking, data
+              analysis, and technical writing abilities.
             </li>
-            <li>
-              <strong>Field Contribution:</strong> You make a tangible impact in
-              your area of study, positioning yourself as an emerging expert and
-              opening future opportunities.
-            </li>
+      
           </ol>
         </div>
       </div>
@@ -117,23 +113,20 @@ const Insider2Publish = () => {
   return (
     <>
       <div>
-        <div className="  shadow-lg rounded-lg">
+        <div className="  shadow-lg rounded-lgtext-[0.8em]">
           <ol className="list-decimal list-inside space-y-2">
             <li>
-              <strong>Topic Selection:</strong> Students will choose a research
-              topic that interests them. They don't need to be experts, but
-              should have some basic knowledge of the subject.
+              <strong className="text-[12px]">Topic Selection:</strong> Students
+              will choose a research topic that interests them. They don't need
+              to be experts, but should have some basic knowledge of the
+              subject.
             </li>
             <li>
-              <strong>Group Formation:</strong> We will form groups and assign a
-              faculty member as a mentor to each group. and then further
-              research tracks will be released.
+              <strong className="text-[12px]">Group Formation:</strong> We will
+              form groups and assign a faculty member as a mentor to each group.
+              and then further research tracks will be released.
             </li>
-            <li>
-              <strong>Mentorship:</strong>The assigned mentor will guide
-              students in writing their papers and preparing their
-              presentations.
-            </li>
+        
           </ol>
         </div>
       </div>
@@ -145,13 +138,11 @@ const content = [
   {
     concept: "Who is this for?",
     inside:
-      "The conference is for the undergraduate students of upcoming 2nd year, 3rd year, and the present 4th year students.  aiming to provide a platform for students to showcase their research work and to learn from the experiences of others. helps students bridge the gap between theory and practice and grow their knowledge by providing a peer-to-peer learning environment.",
+      "The conference is for the undergraduate students of upcoming 2nd year, 3rd year, and the present 4th year students.  aiming to provide a platform for students to showcase their research work and to learn from the experiences of others.",
   },
   {
     concept: "Why Research?",
-    inside: (
-      <Insider  />
-    ),
+    inside: <Insider />,
   },
   {
     concept: "Flow of this conference",
@@ -160,62 +151,53 @@ const content = [
 ];
 
 const events = [
-
   {
-    event: "Day 1",
-    about:
-    "  Announcement of the event registeration from the circulation",
+    event: "Step 1",
+    about: "  Announcement of the event registeration from the circulation",
     poster: "https://gdsc.dbit.in/img/Website_BG.png",
     date: "15th August",
   },
   {
-    event: "Day 2",
-    about:
-      "Closing of the registration forms",
+    event: "Step 2",
+    about: "Closing of the registration forms",
     poster: "https://gdsc.dbit.in/img/Website_BG.png",
     date: "20th August",
   },
 
   {
-    event: "Day 3",
-    about:
-      "Group Formation, Mentor aasing and Tracks release",
+    event: "Step 3",
+    about: "Group Formation, Mentor aasing and Tracks release",
     poster: "https://gdsc.dbit.in/img/Website_BG.png",
     date: "Last week of August",
   },
   {
-    event: "Day 4",
-    about:
-      "Abstract Submission",
+    event: "Step 4",
+    about: "Abstract Submission",
     poster: "https://gdsc.dbit.in/img/Website_BG.png",
     date: "1st week of September",
   },
   {
-    event: "Day 5",
-    about:
-      "Full Paper Submission",
+    event: "Step 5",
+    about: "Full Paper Submission",
     poster: "https://gdsc.dbit.in/img/Website_BG.png",
     date: "Last week of September",
   },
   {
-    event: "Day 6 ",
-    about:
-      "Mails  of accpetance and modification",
+    event: "Step 6 ",
+    about: "Mails  of accpetance and modification",
     poster: "https://gdsc.dbit.in/img/Website_BG.png",
     date: "1st week of October",
   },
 
   {
-    event: "Day 7",
-    about:
-      "Last Paper Submission",
+    event: "Step 7",
+    about: "Last Paper Submission",
     poster: "https://gdsc.dbit.in/img/Website_BG.png",
     date: "2nd week of October",
   },
   {
-    event: "Day 8", 
-    about:
-      "conference day",
+    event: "Step 8",
+    about: "conference day",
     poster: "https://gdsc.dbit.in/img/Website_BG.png",
     date: "18-19 October ",
   },
@@ -284,13 +266,13 @@ const Column: React.FC<{ content: Project[] }> = ({ content }) => {
 const Slider: React.FC<SliderProps> = ({ content }) => {
   return (
     <>
-      <div className="w-full h-[450px] md:h-[500px] lg:h-[600px] flex items-center justify-center">
-        <Carousel className="w-full max-w-[70%] ">
-          <CarouselContent className="-ml-1">
+      <div className="w-full h-[60vh] md:h-[65vh] lg:h-[45vh] flex items-center justify-center">
+        <Carousel className="w-full max-w-[80%] md:max-w-[70%] lg:max-w-[60%]">
+          <CarouselContent className="ml-1">
             {content.map((project: Project) => (
               <CarouselItem key={project.event} title={project.event}>
-                <div className="  relative overflow-hidden rounded-2xl transition duration-200 group bg-white hover:shadow-xl border border-zinc-100 flex-grow flex flex-col ">
-                  <div className="w-full aspect-w-16 aspect-h-10 bg-blue-500 rounded-tr-lg rounded-tl-lg overflow-hidden relative p-3">
+                <div className="relative overflow-hidden rounded-2xl transition duration-200 group bg-white hover:shadow-xl border border-zinc-100 flex-grow flex flex-col">
+                  <div className="w-full aspect-w-16 aspect-h-9 bg-blue-500 rounded-tr-lg rounded-tl-lg overflow-hidden relative p-3">
                     <img
                       src={project.poster}
                       alt="thumbnail"
@@ -322,22 +304,25 @@ const Slider: React.FC<SliderProps> = ({ content }) => {
   );
 };
 
-
 const Column2: React.FC<{ content: any; y: any }> = ({ content, y }) => {
+  // Convert the y to number using useTransform
+  const y2 = useTransform(y, (value: number) => value );
+
   return (
-    <motion.div style={{ y }} className="w-[100vw]">
-      <div className="flex flex-col items-center justify-center">
-        <h1 className="self-start text-black mb-7 text-[3.3em] md:text-[5em] md:mb-10 md:ml-[3em] font-bold">
+    <motion.div style={{ y: y2 }} className="w-[100vw]">
+      <div className="flex flex-col items-center justify-center px-4 md:px-0">
+        <h1 className="self-start text-black mb-7 text-[2.5em] md:text-[3em] md:mb-10 md:ml-[3em] font-bold">
           About Event
         </h1>
         <HoverEffect
           items={content}
-          className="w-full md:w-[60%] lg:w-[70%] h-auto md:h-[20%] lg:h-[45%]"
+          className="w-full sm:w-[80%] md:w-[60%] lg:w-[100%] text-sm  "
         />
       </div>
     </motion.div>
   );
 };
+
 
 const Home: React.FC = () => {
   const gallery = useRef<HTMLDivElement | null>(null);
@@ -425,7 +410,7 @@ const Home: React.FC = () => {
           ref={refs[0]}
           id="timeline"
           className="relative h-fit py-2 w-full bg-black lg:min-h-screen "
-          style={{ top: `-${progress * 3}vh` }}
+          style={{ top: `-${progress * 2.5}vh` }}
         >
           <Column content={events} />
         </div>
@@ -433,7 +418,7 @@ const Home: React.FC = () => {
           ref={refs[1]}
           id="contactus"
           className="w-[100%] h-[100vh] flex items-center justify-center relative"
-          style={{ top: `-${progress * 3}vh` }}
+          style={{ top: `-${progress * 2.5}vh` }}
         >
           {/* <ContactForm /> */}
 

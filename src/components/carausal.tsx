@@ -156,9 +156,8 @@ const CarouselContent = React.forwardRef<
 >(({ className, ...props }, ref) => {
   const { carouselRef, orientation } = useCarousel();
 
-
   return (
-    <div ref={carouselRef } className="overflow-hidden">
+    <div ref={carouselRef} className="overflow-hidden">
       <div
         ref={ref}
         className={cn(
@@ -189,14 +188,13 @@ const CarouselItem = React.forwardRef<
         orientation === "horizontal" ? "pl-4" : "pt-4",
         className,
         "pt-[1.3em]  "
-        
       )}
     >
       <FollowerPointerCardWFade
         title={props.title}
-        className="flex-shrink-0 w-[80%] md:w-[40vw] lg:w-[20vw] h-[450px] flex flex-col relative before:absolute before:content-[''] before:text-white before:z-50 before:w-4 before:h-4 before:top-[-1.2em] before:bg-red-500 before:rounded-full
-          after:absolute after:content-[''] after:text-white after:z-40 after:w-[105%] after:top-[-0.7em] after:h-[1px] after:bg-white   after:left-[2.5%]
-        "
+        className="flex-shrink-0 w-[80%] md:w-[15vw] lg:w-[20vw] h-[40vh] md:h-[45vh] lg:h-[50vh] flex flex-col relative before:absolute before:content-[''] before:text-white before:z-50 before:w-4 before:h-4 before:top-[-1.2em] before:bg-red-500 before:rounded-full
+    after:absolute after:content-[''] after:text-white after:z-40 after:w-[105%] after:top-[-0.7em] after:h-[1px] after:bg-white after:left-[2.5%]
+  "
       >
         {props.children}
       </FollowerPointerCardWFade>

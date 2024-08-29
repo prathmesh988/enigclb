@@ -2,12 +2,11 @@ import React, { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue } from "framer-motion";
 import { cn } from "../lib/util";
 import { useInView } from "framer-motion";
-import { useCarousel } from "./carausal";
 
 type FollowerPointerCardProps = {
   children: React.ReactNode;
   className?: string;
-  title?:any;
+  title?: any;
 };
 export const FollowerPointerCard: React.FC<FollowerPointerCardProps> = ({
   children,
@@ -44,8 +43,7 @@ export const FollowerPointerCard: React.FC<FollowerPointerCardProps> = ({
 
   useEffect(() => {
     console.log(isInView);
-  }
-  , [isInView]);
+  }, [isInView]);
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (rect) {
       x.set(e.clientX - rect.left);
@@ -62,27 +60,22 @@ export const FollowerPointerCard: React.FC<FollowerPointerCardProps> = ({
   };
 
   return (
-  
-   
     <motion.div
-    initial={{ opacity: 0, y: 50 }}
-    animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 30 }}
-    transition={{ duration: 0.8, ease: "easeOut" }}
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 30 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
       onMouseLeave={handleMouseLeave}
       onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       style={{ cursor: "none" }}
       ref={ref}
       className={cn("relative", className)}
-     
     >
       <AnimatePresence>
         {isInside && <FollowPointer x={x} y={y} title={title} />}
       </AnimatePresence>
       {children}
     </motion.div>
-    
- 
   );
 };
 
@@ -90,7 +83,6 @@ type FollowPointerProps = {
   x: any; // Replace 'any' with appropriate type if x and y have specific motion value types
   y: any;
   title?: string;
-
 };
 
 export const FollowerPointerCardWFade: React.FC<FollowerPointerCardProps> = ({
@@ -102,62 +94,22 @@ export const FollowerPointerCardWFade: React.FC<FollowerPointerCardProps> = ({
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const ref = useRef<HTMLDivElement>(null);
-  const [rect, setRect] = useState<DOMRect | null>(null);
+
   const [isInside, setIsInside] = useState(false);
- 
-  const { api } = useCarousel(); // Use the carousel context to get the API
-  const [scrollX, setScrollX] = useState(0);
-  const [containerRect, setContainerRect] = useState<DOMRect | null>(null);
 
- 
+  // Use the carousel context to get the API
 
-  useEffect(() => {
-    const updateRects = () => {
-      if (ref.current) {
-       
-        setRect(ref.current.getBoundingClientRect());
-        if (ref.current.parentElement) {
-          setContainerRect(ref.current!.parentElement!.parentElement!.parentElement!.getBoundingClientRect());
-        }
-      }
-    };
+  const handleMouseMove: any = (e: any) => {
+    if (ref.current) {
+      const rect = ref.current.getBoundingClientRect();
 
-    updateRects();
-    window.addEventListener("resize", updateRects);
-    window.addEventListener("scroll", updateRects);
+      // Calculate mouse position relative to the element
+      const relativeX = e.clientX - rect.left;
+      const relativeY = e.clientY - rect.top;
 
-    return () => {
-      window.removeEventListener("resize", updateRects);
-      window.removeEventListener("scroll", updateRects);
-    };
-  }, []);
-
-  useEffect(() => {
-    
-    if (api) {
-      const updateScrollX = () =>{ 
-          console.log(api.scrollProgress());
-        setScrollX(api.scrollProgress() * api.scrollSnapList().length)};
-        // console.log(scrollX); 
-        // console.log(api.scrollSnapList().length);
-
-
-      api.on("scroll", updateScrollX); // Update the rectangle on carousel scroll
-      updateScrollX();
-      return () => {
-        api.off("scroll", updateScrollX);
-      };
-    }
-  }, [api]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (rect && containerRect) {
-   
-      const screenWidth = window.innerWidth;
-      const offset = screenWidth * 0.045; 
-    
-      x.set(e.clientX -( rect.left   ) + scrollX * (rect.width  -offset));
-      y.set(e.clientY - rect.top);
+      // Update motion values
+      x.set(relativeX);
+      y.set(relativeY);
     }
   };
 
@@ -171,7 +123,6 @@ export const FollowerPointerCardWFade: React.FC<FollowerPointerCardProps> = ({
 
   return (
     <motion.div
-     
       onMouseLeave={handleMouseLeave}
       onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
@@ -186,7 +137,11 @@ export const FollowerPointerCardWFade: React.FC<FollowerPointerCardProps> = ({
     </motion.div>
   );
 };
-export const FollowPointer: React.FC<FollowPointerProps> = ({ x, y, title }) => {
+export const FollowPointer: React.FC<FollowPointerProps> = ({
+  x,
+  y,
+  title,
+}) => {
   const colors = [
     "var(--sky-500)",
     "var(--neutral-500)",
@@ -234,4 +189,4 @@ export const FollowPointer: React.FC<FollowPointerProps> = ({ x, y, title }) => 
       </motion.div>
     </motion.div>
   );
-}
+};
