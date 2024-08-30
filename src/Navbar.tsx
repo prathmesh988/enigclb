@@ -205,6 +205,16 @@ const Navbar: React.FC<Proptype> = ({
                 >
                   Abstract
                 </motion.button>
+                <motion.button
+                  className="text-white text-lg"
+                  onClick={() => {
+                    reffooter.current?.scrollIntoView({ behavior: "smooth" });
+                    setIsSidebarOpen(false);
+                  }}
+                  whileHover={{ scale: 1.05 }}
+                >
+                  Links
+                </motion.button>
               </motion.div>
             </motion.div>
           </motion.div>
