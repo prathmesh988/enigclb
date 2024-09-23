@@ -59,7 +59,7 @@ function Contact() {
           hover:font-bold
             "
           href="
-          https://docs.google.com/forms/d/e/1FAIpQLSdW1Dm5DGATn5mWwwZq3ngwUsbu3yr2cRkkdt1uk-Ir7JGQxw/viewform?usp=sf_link
+          https://forms.gle/MKm9UmT9ZuLNkaQ99
           "
         >
            submit here
